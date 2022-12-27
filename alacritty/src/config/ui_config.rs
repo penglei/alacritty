@@ -242,7 +242,10 @@ impl Default for Hints {
         #[cfg(not(any(target_os = "macos", windows)))]
         let action = HintAction::Command(Program::Just(String::from("xdg-open")));
         #[cfg(target_os = "macos")]
-        let action = HintAction::Command(Program::Just(String::from("open")));
+        let action = HintAction::Command(Program::WithArgs{
+            program: String::from("open"),
+            args: vec!["-n".to_string(), "-a".to_string(), "Google Chrome".to_string(), "--args".to_string()]
+        });
         #[cfg(windows)]
         let action = HintAction::Command(Program::WithArgs {
             program: String::from("cmd"),
