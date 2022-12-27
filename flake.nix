@@ -7,7 +7,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    import-cargo.url = "github:edolstra/import-cargo";
     crane = {
       url = "github:ipetkov/crane";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +18,6 @@
     , nixpkgs
     , flake-utils
     , rust-overlay
-    , import-cargo
     , crane
     }:
     let
@@ -50,11 +48,6 @@
           (import rust-overlay)
         ];
       };
-
-      cargoHome = (import-cargo.builders.importCargo {
-        lockFile = ./Cargo.lock;
-        inherit pkgs;
-      }).cargoHome;
 
       # Additional packages required for some systems to build alacritty
       missingSysPkgs =
